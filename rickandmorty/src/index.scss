@@ -1,0 +1,18 @@
+$font-stack: Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 100% $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #212121;
+  line-height: 1.5;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
