@@ -1,45 +1,62 @@
-import React, { useState } from 'react'
-import "./SearchBar.scss"
-import { AiOutlineSearch } from "react-icons/ai"
+import React, { useState } from 'react';
+import axios from "axios";
+import "./SearchBar.scss";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function SearchBar() {
     const [searchInput, setSearchInput] = useState("");
-    const characters = [{ "name": "Rick", "specie": "Human" },
-    { "name": "Morty", "specie": "Human" }];
+    const [content, setContent] = useState([]);
+
+    const fetchSearch = async () => {
+        try {
+            const { data } = await axios.get(`https://rickandmortyapi.com/api/character`);
+            setContent(data.results);
+            return content;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const handleChange = (e) => {
         e.preventDefault();
         setSearchInput(e.target.value);
+        fetchSearch(searchInput)
     };
 
+    const handleKeyPress = (e) => {
+        e.preventDefault();
+        if (e.key === "Enter" || e.keyCode === 13 || e.code === "Enter") {
+            fetchSearch(searchInput)
+        }
+    }
     if (searchInput.length > 0) {
-        characters.filter((character) => {
-            return character.name.match(searchInput);
-        });
+        fetchSearch(searchInput);
     }
 
-
     return (
-        <div className="Search">
-            <AiOutlineSearch className="SearchIcon" />
-            <input className="Input" type="text" placeholder="Filter by name..." onChange={handleChange}
-                value={searchInput} />
-            {/* <table>
-            <tr>
-                <th>Name</th>
-                
-                </tr>
-                <tr>
-                    <th>Specie</th>
-                </tr>
-            {characters.map((character, id) => {
-                return(<tr>
-                    <td>{character.name}</td>
-                    <td>{character.specie}</td>
-                </tr>)
-            })}
-        </table> */}
-        </div>
+        <>
+            <div className="Search">
+                <button className="SearchIcon" onClick={handleKeyPress}><AiOutlineSearch width="24px" height="24px" /></button>
+
+                <input className="Input" type="text" name="search" placeholder="Filter by name..." onChange={handleChange} onClick={handleKeyPress}
+                    value={searchInput} />
+            </div>
+            <div>
+                {searchInput.length > 0 && content.map((results) => {
+                    return (<div className="CharacterListItem" key={results.id}>
+                        <div className="CharacterImg">
+                            <img src={results.image} alt={results.name} width="100%" height="100%" />
+                        </div>
+                        <div className="CharacterDetails">
+                            <p className="CharacterName">{results.name}</p>
+                            <p className="CharacterSpecies">{results.species}</p>
+                        </div>
+
+                    </div>)
+                })}
+            </div>
+        </>
     );
 }
 
