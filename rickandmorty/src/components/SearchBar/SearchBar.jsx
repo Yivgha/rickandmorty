@@ -1,30 +1,30 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import "./SearchBar.scss"
-import {AiOutlineSearch} from "react-icons/ai"
+import { AiOutlineSearch } from "react-icons/ai"
 
 function SearchBar() {
     const [searchInput, setSearchInput] = useState("");
     const characters = [{ "name": "Rick", "specie": "Human" },
-        { "name": "Morty", "specie": "Human" }];
-    
-    const handleChange = (e) => {
-  e.preventDefault();
-  setSearchInput(e.target.value);
-};
+    { "name": "Morty", "specie": "Human" }];
 
-if (searchInput.length > 0) {
-    characters.filter((character) => {
-    return character.name.match(searchInput);
-});
-}
-    
-    
+    const handleChange = (e) => {
+        e.preventDefault();
+        setSearchInput(e.target.value);
+    };
+
+    if (searchInput.length > 0) {
+        characters.filter((character) => {
+            return character.name.match(searchInput);
+        });
+    }
+
+
     return (
         <div className="Search">
-        <AiOutlineSearch className="SearchIcon"/>
-        <input className="Input" type="text"  placeholder="Filter by name..." onChange={handleChange}
-            value={searchInput} />
-        {/* <table>
+            <AiOutlineSearch className="SearchIcon" />
+            <input className="Input" type="text" placeholder="Filter by name..." onChange={handleChange}
+                value={searchInput} />
+            {/* <table>
             <tr>
                 <th>Name</th>
                 
