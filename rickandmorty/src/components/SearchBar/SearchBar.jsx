@@ -21,7 +21,7 @@ function SearchBar() {
     const handleChange = (e) => {
         e.preventDefault();
         setSearchInput(e.target.value);
-        fetchSearch(searchInput)
+        fetchSearch(searchInput);
     };
 
     const handleKeyPress = (e) => {
@@ -37,25 +37,25 @@ function SearchBar() {
     return (
         <>
             <div className="Search">
-                <button className="SearchIcon" onClick={handleKeyPress}><AiOutlineSearch width="24px" height="24px" /></button>
+                <button className="SearchIcon" type="submit " onClick={handleKeyPress}><AiOutlineSearch size={"18px"} color={"inherit"} /></button>
 
                 <input className="Input" type="text" name="search" placeholder="Filter by name..." onChange={handleChange} onClick={handleKeyPress}
                     value={searchInput} />
             </div>
-            <div>
-                {searchInput.length > 0 && content.map((results) => {
-                    return (<div className="CharacterListItem" key={results.id}>
-                        <div className="CharacterImg">
-                            <img src={results.image} alt={results.name} width="100%" height="100%" />
-                        </div>
-                        <div className="CharacterDetails">
-                            <p className="CharacterName">{results.name}</p>
-                            <p className="CharacterSpecies">{results.species}</p>
-                        </div>
 
-                    </div>)
-                })}
-            </div>
+            {content.map((results) => {
+                return (<div className="CharacterListItem" key={results.id}>
+                    <div className="CharacterImg">
+                        <img src={results.image} alt={results.name} width="100%" height="100%" />
+                    </div>
+                    <div className="CharacterDetails">
+                        <p className="CharacterName">{results.name}</p>
+                        <p className="CharacterSpecies">{results.species}</p>
+                    </div>
+
+                </div>)
+            })}
+
         </>
     );
 }
