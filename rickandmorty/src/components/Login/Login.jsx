@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 // import Home from "components/Home/Home";
 
 const Login = () => {
+    // eslint-disable-next-line
     const [user, setUser] = useState({});
     // const logo = require("../../images/logo.png");
 
